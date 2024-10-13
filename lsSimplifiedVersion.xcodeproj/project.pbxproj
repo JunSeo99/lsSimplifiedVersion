@@ -25,6 +25,8 @@
 /* Begin PBXFileReference section */
 		BF8007742CBADB4F0086F401 /* lsSimplifiedVersion */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = lsSimplifiedVersion; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF8007772CBADB4F0086F401 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		BF80077F2CBB816D0086F401 /* test1.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = test1.md; sourceTree = "<group>"; };
+		BF8007802CBB817A0086F401 /* test2.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = test2.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,9 +59,27 @@
 		BF8007762CBADB4F0086F401 /* lsSimplifiedVersion */ = {
 			isa = PBXGroup;
 			children = (
+				BF8007812CBB817F0086F401 /* TestGroup2 */,
+				BF80077E2CBB80080086F401 /* TestGroup */,
 				BF8007772CBADB4F0086F401 /* main.c */,
 			);
 			path = lsSimplifiedVersion;
+			sourceTree = "<group>";
+		};
+		BF80077E2CBB80080086F401 /* TestGroup */ = {
+			isa = PBXGroup;
+			children = (
+				BF80077F2CBB816D0086F401 /* test1.md */,
+				BF8007802CBB817A0086F401 /* test2.md */,
+			);
+			path = TestGroup;
+			sourceTree = "<group>";
+		};
+		BF8007812CBB817F0086F401 /* TestGroup2 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TestGroup2;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
