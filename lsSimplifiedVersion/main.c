@@ -78,7 +78,7 @@ int main(int argc, char *argv[]) {
         
         // '/' 까지 잘라줍니다
         path[count - filename_len - 1] = '\0';
-        printf(path)
+        printf(path);
         list_directory(path, options, 0);
     } else {
         // 지정된 각 디렉토리를 나열
