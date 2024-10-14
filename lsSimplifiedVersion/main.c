@@ -8,7 +8,7 @@
 #include <grp.h>        // 그룹 ID를 위한 헤더
 #include <time.h>       // 시간 형식을 위한 헤더
 #include <getopt.h>     // getopt_long을 위한 헤더
-#include <libgen.h> // 현재 파일경로를 가져오기 위한 헤더
+#include <limits.h>// 현재 파일경로를 가져오기 위한 헤더
 
 // 옵션을 위한 enum 정의
 enum Options {
@@ -64,10 +64,11 @@ int main(int argc, char *argv[]) {
 
     // 디렉토리가 지정되지 않은 경우 현재 디렉토리를 나열
     if (optind == argc) {
-        char *cwd = (char *)malloc(sizeof(char) * 1024);
-        strcpy(cwd, __FILE__); // __FILE__ 는 현재경로를 문자열로 cwd 에 저장
-        printf("%s", cwd);
-        list_directory(cwd, options, 0);
+        char *path = (char *)malloc(sizeof(char) * 1024);;
+        ssize_t count = readlink("/proc/self/exe", path, PATH_MAX);
+        path[count] = '\0';
+        printf("Executable path: %s\n", path);
+        list_directory(path, options, 0);
     } else {
         // 지정된 각 디렉토리를 나열
         for (int i = optind; i < argc; i++) {
