@@ -68,9 +68,7 @@ int main(int argc, char *argv[]) {
         char *path = (char *)malloc(sizeof(char) * 1024);;
         ssize_t count = readlink("/proc/self/exe", path, PATH_MAX);
         path[count] = '\0';
-        char *dir = dirname(path); // 현재 컴파일된 파일의 경로에서 디렉토리 경로만을 가지고옴
-        printf("%s", dir);
-        list_directory(dir, options, 0);
+        list_directory(path, options, 0);
     } else {
         // 지정된 각 디렉토리를 나열
         for (int i = optind; i < argc; i++) {
