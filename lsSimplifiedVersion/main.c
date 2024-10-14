@@ -64,22 +64,7 @@ int main(int argc, char *argv[]) {
 
     // 디렉토리가 지정되지 않은 경우 현재 디렉토리를 나열
     if (optind == argc) {
-        char path[1024];
-        ssize_t count = readlink("/proc/self/exe", path, 1024);
-        printf("%zd", count);
-        printf("%s\n", path);
-        path[count] = '\0';
-    
-        // 현재 path 는 컴파일된 파일까지 포함하기 때문에 다음과 같이 컴파일된 파일명을 지워야
-        // 현재 path 완성
-        char *filename = strrchr(path, '/');
-        filename++;  // '/' 다음부터가 파일명
-        size_t filename_len = strlen(filename);
-        
-        // '/' 까지 잘라줍니다
-        path[count - filename_len - 1] = '\0';
-        printf("%s\n", path);
-        list_directory(path, options, 0);
+        list_directory(".", options, 0);
     } else {
         // 지정된 각 디렉토리를 나열
         for (int i = optind; i < argc; i++) {
@@ -106,7 +91,7 @@ void list_directory(const char *dir_name, int options, int depth) {
     // 파일 이름들을 저장할 배열
     struct dirent **namelist;
     int n;
-
+    
     if (options & OPT_SORT_ALPHA) {
         // 알파벳 순으로 정렬
         n = scandir(dir_name, &namelist, NULL, alphasort);
@@ -139,6 +124,16 @@ void list_directory(const char *dir_name, int options, int depth) {
                 printf("  ");
             }
             printf("|-- ");
+            // 트리는 재귀적으로 호출
+            struct stat st;
+            if (stat(path, &st) == -1) {
+                perror(path);
+                free(entry);
+                continue;
+            }
+            if (S_ISDIR(st.st_mode) && strcmp(entry->d_name, ".") != 0 && strcmp(entry->d_name, "..") != 0) {
+                list_directory(path, options, depth + 1);
+            }
         }
 
         if (options & OPT_LONG_FORMAT) {
@@ -146,19 +141,6 @@ void list_directory(const char *dir_name, int options, int depth) {
         } else {
             printf("%s\n", entry->d_name);
         }
-
-        // 디렉토리인 경우 재귀적으로 호출
-        struct stat st;
-        if (stat(path, &st) == -1) {
-            perror(path);
-            free(entry);
-            continue;
-        }
-
-        if (S_ISDIR(st.st_mode) && strcmp(entry->d_name, ".") != 0 && strcmp(entry->d_name, "..") != 0) {
-            list_directory(path, options, depth + 1);
-        }
-
         free(entry);
     }
     free(namelist);
