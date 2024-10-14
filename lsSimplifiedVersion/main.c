@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <dirent.h>     // 디렉토리 작업을 위한 헤더 파일
-#include <sys/stat.h>   // 파일 상태 정보를 위한 헤더 파일
-#include <unistd.h>     // getopt를 위한 헤더 파일
-#include <pwd.h>        // 사용자 ID를 위한 헤더 파일
-#include <grp.h>        // 그룹 ID를 위한 헤더 파일
-#include <time.h>       // 시간 형식을 위한 헤더 파일
-#include <getopt.h>     // getopt_long을 위한 헤더 파일
+#include <dirent.h>     // 디렉토리 작업을 위한 헤더
+#include <sys/stat.h>   // 파일 상태 정보를 위한 헤더
+#include <unistd.h>     // getopt를 위한 헤더
+#include <pwd.h>        // 사용자 ID를 위한 헤더
+#include <grp.h>        // 그룹 ID를 위한 헤더
+#include <time.h>       // 시간 형식을 위한 헤더
+#include <getopt.h>     // getopt_long을 위한 헤더
+#include <libgen.h> // 현재 파일경로를 가져오기 위한 헤더
 
 // 옵션을 위한 enum 정의
 enum Options {
@@ -64,7 +65,7 @@ int main(int argc, char *argv[]) {
     // 디렉토리가 지정되지 않은 경우 현재 디렉토리를 나열
     if (optind == argc) {
         char *cwd = (char *)malloc(sizeof(char) * 1024);
-        getcwd(cwd, 1024); // getcwd 는 현재경로를 문자열로 cwd 에 저장
+        strcpy(cwd, __FILE__); // __FILE__ 는 현재경로를 문자열로 cwd 에 저장
         printf("%s", cwd);
         list_directory(cwd, options, 0);
     } else {
