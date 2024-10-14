@@ -66,7 +66,7 @@ int main(int argc, char *argv[]) {
     // 디렉토리가 지정되지 않은 경우 현재 디렉토리를 나열
     if (optind == argc) {
         char *path = (char *)malloc(sizeof(char) * 1024);;
-        ssize_t count = readlink("/proc/self/exe", path, PATH_MAX);
+        ssize_t count = readlink("/proc/self/exe", path, 1024);
         path[count] = '\0';
         list_directory(path, options, 0);
     } else {
