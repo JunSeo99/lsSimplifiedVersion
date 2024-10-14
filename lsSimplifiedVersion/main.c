@@ -118,12 +118,17 @@ void list_directory(const char *dir_name, int options, int depth) {
         char path[1024];
         snprintf(path, sizeof(path), "%s/%s", dir_name, entry->d_name);
 
-        // 트리 형식인 경우 들여쓰기 적용
         if (options & OPT_TREE_FORMAT) {
+            // 트리 형식인 경우 들여쓰기 적용
             for (int j = 0; j < depth; j++) {
                 printf("  ");
             }
             printf("|-- ");
+            if (options & OPT_LONG_FORMAT) {
+                print_file_info(path, entry->d_name, options);
+            } else {
+                printf("%s\n", entry->d_name);
+            }
             // 트리는 재귀적으로 호출
             struct stat st;
             if (stat(path, &st) == -1) {
@@ -134,6 +139,8 @@ void list_directory(const char *dir_name, int options, int depth) {
             if (S_ISDIR(st.st_mode) && strcmp(entry->d_name, ".") != 0 && strcmp(entry->d_name, "..") != 0) {
                 list_directory(path, options, depth + 1);
             }
+            free(entry);
+            continue;
         }
 
         if (options & OPT_LONG_FORMAT) {
