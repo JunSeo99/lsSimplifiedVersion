@@ -1,14 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <dirent.h>     // 디렉토리 작업을 위한 헤더
-#include <sys/stat.h>   // 파일 상태 정보를 위한 헤더
-#include <unistd.h>     // getopt를 위한 헤더
-#include <pwd.h>        // 사용자 ID를 위한 헤더
-#include <grp.h>        // 그룹 ID를 위한 헤더
-#include <time.h>       // 시간 형식을 위한 헤더
-#include <getopt.h>     // getopt_long을 위한 헤더
-#include <limits.h>// 현재 파일경로를 가져오기 위한 헤더
+#include <dirent.h> // 디렉토리 작업을 위한 헤더
+#include <sys/stat.h> // 파일 상태 정보를 위한 헤더
+#include <unistd.h> // getopt를 위한 헤더
+#include <pwd.h> // 사용자 ID를 위한 헤더
+#include <grp.h> // 그룹 ID를 위한 헤더
+#include <time.h> // 시간 형식을 위한 헤더
+#include <getopt.h> // getopt_long을 위한 헤더
+#include <limits.h> // 현재 파일경로를 가져오기 위한 헤더
+#include <libgen.h> // 현재 파일경로를 가져오기 위한 헤더
 
 // 옵션을 위한 enum 정의
 enum Options {
