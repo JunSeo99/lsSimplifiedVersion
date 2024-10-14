@@ -67,7 +67,7 @@ int main(int argc, char *argv[]) {
         char path[1024];
         ssize_t count = readlink("/proc/self/exe", path, 1024);
         printf("%zd", count);
-        
+        printf(path);
         path[count] = '\0';  // readlink 에 마지막에 null 추가
     
         // 현재 path 는 컴파일된 파일까지 포함하기 때문에 다음과 같이 컴파일된 파일명을 지워야
