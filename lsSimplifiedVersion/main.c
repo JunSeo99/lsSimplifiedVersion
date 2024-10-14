@@ -9,7 +9,6 @@
 #include <time.h> // 시간 형식을 위한 헤더
 #include <getopt.h> // getopt_long을 위한 헤더
 #include <limits.h> // 현재 파일경로를 가져오기 위한 헤더
-#include <libgen.h> // 현재 파일경로를 가져오기 위한 헤더
 
 // 옵션을 위한 enum 정의
 enum Options {
@@ -68,7 +67,17 @@ int main(int argc, char *argv[]) {
         char *path = (char *)malloc(sizeof(char) * 1024);;
         ssize_t count = readlink("/proc/self/exe", path, 1024);
         printf("%zd", count);
-        path[count] = '\0';
+        
+        path[count] = '\0';  // readlink 에 마지막에 null 추가
+    
+        // 현재 path 는 컴파일된 파일까지 포함하기 때문에 다음과 같이 컴파일된 파일명을 지워야
+        // 현재 path 완성
+        char *filename = strrchr(path, '/');
+        filename++;  // '/' 다음부터가 파일명
+        size_t filename_len = strlen(filename);
+        
+        // '/' 까지 잘라줍니다
+        path[count - filename_len - 1] = '\0';
         list_directory(path, options, 0);
     } else {
         // 지정된 각 디렉토리를 나열
