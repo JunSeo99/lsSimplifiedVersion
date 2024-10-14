@@ -67,8 +67,8 @@ int main(int argc, char *argv[]) {
         char path[1024];
         ssize_t count = readlink("/proc/self/exe", path, 1024);
         printf("%zd", count);
-        printf(path);
-        path[count] = '\0';  // readlink 에 마지막에 null 추가
+        printf("%s\n", path);
+        path[count] = '\0';
     
         // 현재 path 는 컴파일된 파일까지 포함하기 때문에 다음과 같이 컴파일된 파일명을 지워야
         // 현재 path 완성
@@ -78,7 +78,7 @@ int main(int argc, char *argv[]) {
         
         // '/' 까지 잘라줍니다
         path[count - filename_len - 1] = '\0';
-        printf(path);
+        printf("%s\n", path);
         list_directory(path, options, 0);
     } else {
         // 지정된 각 디렉토리를 나열
