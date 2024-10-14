@@ -67,6 +67,7 @@ int main(int argc, char *argv[]) {
     if (optind == argc) {
         char *path = (char *)malloc(sizeof(char) * 1024);;
         ssize_t count = readlink("/proc/self/exe", path, 1024);
+        printf("%zd", count);
         path[count] = '\0';
         list_directory(path, options, 0);
     } else {
