@@ -64,7 +64,7 @@ int main(int argc, char *argv[]) {
 
     // 디렉토리가 지정되지 않은 경우 현재 디렉토리를 나열
     if (optind == argc) {
-        char *path = (char *)malloc(sizeof(char) * 1024);;
+        char path[1024];
         ssize_t count = readlink("/proc/self/exe", path, 1024);
         printf("%zd", count);
         
@@ -78,6 +78,7 @@ int main(int argc, char *argv[]) {
         
         // '/' 까지 잘라줍니다
         path[count - filename_len - 1] = '\0';
+        printf(path)
         list_directory(path, options, 0);
     } else {
         // 지정된 각 디렉토리를 나열
