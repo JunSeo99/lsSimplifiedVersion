@@ -11,6 +11,7 @@
 #include <limits.h> // 현재 파일경로를 가져오기 위한 헤더
 
 // 옵션을 위한 enum 정의
+// 각종 연산을 위해 비트값을 할당했습니다.
 enum Options {
     OPT_NONE = 0,
     OPT_SHOW_ALL = 1 << 0,     // -a
