@@ -63,7 +63,9 @@ int main(int argc, char *argv[]) {
 
     // 디렉토리가 지정되지 않은 경우 현재 디렉토리를 나열
     if (optind == argc) {
-        list_directory(".", options, 0);
+        char *cwd = (char *)malloc(sizeof(char) * 1024);
+        getcwd(cwd, 1024); // getcwd 는 현재경로를 문자열로 cwd 에 저장
+        list_directory(cwd, options, 0);
     } else {
         // 지정된 각 디렉토리를 나열
         for (int i = optind; i < argc; i++) {
