@@ -65,6 +65,7 @@ int main(int argc, char *argv[]) {
     if (optind == argc) {
         char *cwd = (char *)malloc(sizeof(char) * 1024);
         getcwd(cwd, 1024); // getcwd 는 현재경로를 문자열로 cwd 에 저장
+        printf("%s", cwd);
         list_directory(cwd, options, 0);
     } else {
         // 지정된 각 디렉토리를 나열
